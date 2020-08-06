@@ -2,16 +2,20 @@ package com.account.manager.am.model;
 
 import lombok.*;
 
-import java.math.BigInteger;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Entity
+@Table(name = "transactions")
 public class Transaction {
-
-    private BigInteger transactionId;
-    private BigInteger accountId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
+    private int transactionId;
+    @Column(name = "valueOfTransaction")
     private float valueOfTransaction;
 }
