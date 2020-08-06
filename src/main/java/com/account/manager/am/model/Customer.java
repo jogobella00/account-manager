@@ -4,10 +4,10 @@ import lombok.*;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -27,9 +27,23 @@ public class Customer {
     // name = 'customer_id' -> from accounts table
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
-    private List<Transaction> transactions;
-//
-    @Formula("select sum(a.balance) from accounts a where a.customer_id = customer_id")
+    private List<Account> accounts;
+
+    @Formula("select sum(a.balance) from accounts a " +
+            "where a.customer_id = customer_id")
     private float balance;
-//    private List<Transaction> transactions;
+
+    public Customer(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void addAccount(Account account) {
+
+        if (accounts == null) {
+            accounts = new ArrayList<>();
+        }
+
+        accounts.add(account);
+    }
 }

@@ -3,10 +3,10 @@ package com.account.manager.am.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -19,8 +19,21 @@ public class Account {
     @Column(name = "account_id")
     private int accountId;
     @Column(name = "balance")
-    private float balance;
+    private double balance;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private List<Transaction> transactions;
+
+    public Account(double balance) {
+        this.balance = balance;
+    }
+
+    public void addTransaction(Transaction transaction) {
+
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
+
+        transactions.add(transaction);
+    }
 }

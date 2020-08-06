@@ -3,9 +3,10 @@ package com.account.manager.am.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -17,5 +18,18 @@ public class Transaction {
     @Column(name = "transaction_id")
     private int transactionId;
     @Column(name = "valueOfTransaction")
-    private float valueOfTransaction;
+    private double valueOfTransaction;
+//
+//    public void addAccount(Account account) {
+//
+//        if (accounts == null) {
+//            accounts = new ArrayList<>();
+//        }
+//
+//        accounts.add(account);
+//    }
+
+    public Transaction(double valueOfTransaction) {
+        this.valueOfTransaction = valueOfTransaction;
+    }
 }

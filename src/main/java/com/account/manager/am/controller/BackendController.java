@@ -20,7 +20,7 @@ public class BackendController {
     }
 
     @GetMapping("/customer/{customerId}")
-    public Customer getCustomer(@PathVariable Long customerId) {
+    public Customer getCustomer(@PathVariable int customerId) {
         return customerService.getCustomerById(customerId);
     }
 }
