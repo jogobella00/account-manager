@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class StartupDataLoad implements ApplicationRunner {
 
-    private AccountRepository accountRepository;
-    private CustomerRepository customerRepository;
-    private TransactionRepository transactionRepository;
+    private final AccountRepository accountRepository;
+    private final CustomerRepository customerRepository;
+    private final TransactionRepository transactionRepository;
 
     @Autowired
     public StartupDataLoad(AccountRepository accountRepository, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
@@ -31,6 +31,7 @@ public class StartupDataLoad implements ApplicationRunner {
         Transaction transaction1 = new Transaction(1000);
         Transaction transaction2 = new Transaction(-500);
         Transaction transaction3 = new Transaction(1554.32);
+        // TODO: do contructor with getting values of transactions
         Account acc1 = new Account(transaction1.getValueOfTransaction() + transaction2.getValueOfTransaction());
 
         Account acc2 = new Account(transaction3.getValueOfTransaction());

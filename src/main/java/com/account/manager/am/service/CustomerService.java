@@ -5,4 +5,5 @@ import com.account.manager.am.model.Customer;
 public interface CustomerService {
 
     Customer getCustomerById(int customerId);
+    void saveNewAccount(int customerId, int initialCredit);
 }
