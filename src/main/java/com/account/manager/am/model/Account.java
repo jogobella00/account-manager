@@ -18,6 +18,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
     private int accountId;
+    //TODO: set it as decimal (10,2)
     @Column(name = "balance")
     private double balance;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

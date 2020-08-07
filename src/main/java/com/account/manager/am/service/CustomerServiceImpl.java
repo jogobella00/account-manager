@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveNewAccount(int customerId, int initialCredit) {
+    public void saveNewAccount(int customerId, double initialCredit) {
         // TODO: make it better
         // TODO: add transactions
         Customer cust = customerRepository
