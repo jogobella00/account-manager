@@ -1,5 +1,6 @@
 package com.account.manager.am.controller;
 
+import com.account.manager.am.exception.WrongInitialCreditException;
 import com.account.manager.am.model.Customer;
 import com.account.manager.am.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +72,12 @@ public class BackendController {
      */
     @GetMapping("/customer/{customerId}/account")
     public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
-                                                   @RequestParam @Min(value = 1, message = "you cannot open new account with no money!") double initialCredit) {
-        customerService.saveNewAccount(customerId, initialCredit);
+                                                   @RequestParam double initialCredit) {
+        if (initialCredit == 0) {
+            throw new WrongInitialCreditException("You cannot do transfer with no money!");
+        } else {
+            customerService.saveNewAccount(customerId, initialCredit);
+        }
         return ResponseEntity.status(204).build();
     }
 }

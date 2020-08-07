@@ -17,11 +17,11 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ConstraintViolationException.class)
-    ResponseEntity<Object> handleWrongInitialCredit(RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(WrongInitialCreditException.class)
+    ResponseEntity<Object> handleWrongInitialCredit(WrongInitialCreditException ex, WebRequest request) {
         return handleExceptionInternal(
                 ex,
-                "You cannot open new account with no money! InitialCredit should be bigger than 0.",
+                ex.getMessage(),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST,
                 request
