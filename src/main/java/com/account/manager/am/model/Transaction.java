@@ -1,10 +1,13 @@
 package com.account.manager.am.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Getter
@@ -16,20 +19,14 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transaction_id")
+    @NotNull
     private int transactionId;
-    @Column(name = "valueOfTransaction")
-    private double valueOfTransaction;
-//
-//    public void addAccount(Account account) {
-//
-//        if (accounts == null) {
-//            accounts = new ArrayList<>();
-//        }
-//
-//        accounts.add(account);
-//    }
 
-    public Transaction(double valueOfTransaction) {
+    @Column(name = "valueOfTransaction", precision = 10, scale = 2)
+    @NotNull
+    private BigDecimal valueOfTransaction;
+
+    public Transaction(BigDecimal valueOfTransaction) {
         this.valueOfTransaction = valueOfTransaction;
     }
 }

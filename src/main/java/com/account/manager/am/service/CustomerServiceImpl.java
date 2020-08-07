@@ -8,6 +8,8 @@ import com.account.manager.am.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -28,7 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveNewAccount(int customerId, double initialCredit) {
+    public void saveNewAccount(int customerId, BigDecimal initialCredit) {
 
         Customer customer = new Customer();
 
@@ -43,7 +45,8 @@ public class CustomerServiceImpl implements CustomerService {
 
         customer.addAccount(newAccount);
         newAccount.addTransaction(newTransaction);
-        customerRepository.save(customer);
+
         accountService.save(newAccount);
+        customerRepository.saveAndFlush(customer);
     }
 }

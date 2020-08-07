@@ -11,6 +11,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class StartupDataLoad implements ApplicationRunner {
 
@@ -27,19 +29,19 @@ public class StartupDataLoad implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        loadNewCustomer("tom", "jag", 1000, -500, 1554.32);
-        loadNewCustomer("bob", "smith", 2000, 10000, -1554.32);
-        loadNewCustomer("mark", "buffalo", -321531, 999999, -15912.12);
+        loadNewCustomer("tom", "jag", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
+        loadNewCustomer("bob", "smith", BigDecimal.valueOf(2000), BigDecimal.valueOf(10000), BigDecimal.valueOf(-1554.32));
+        loadNewCustomer("mark", "buffalo", BigDecimal.valueOf(-321531), BigDecimal.valueOf(999999), BigDecimal.valueOf(-15912.12));
     }
 
-    public void loadNewCustomer(String firstName, String lastName, double valueOfTransaction1, double valueOfTransaction2, double valueOfTransaction3) {
+    public void loadNewCustomer(String firstName, String lastName, BigDecimal valueOfTransaction1, BigDecimal valueOfTransaction2, BigDecimal valueOfTransaction3) {
 
         Customer cust = new Customer(firstName, lastName);
         Transaction transaction1 = new Transaction(valueOfTransaction1);
         Transaction transaction2 = new Transaction(valueOfTransaction2);
         Transaction transaction3 = new Transaction(valueOfTransaction3);
         // TODO: do contructor with getting values of transactions
-        Account acc1 = new Account(transaction1.getValueOfTransaction() + transaction2.getValueOfTransaction());
+        Account acc1 = new Account(transaction1.getValueOfTransaction().add(transaction2.getValueOfTransaction()));
 
         Account acc2 = new Account(transaction3.getValueOfTransaction());
         cust.addAccount(acc1);

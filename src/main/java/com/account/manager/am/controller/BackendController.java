@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Min;
+import java.math.BigDecimal;
 
 /**
  * Controller with endpoint to
@@ -71,13 +72,13 @@ public class BackendController {
      * @return 204 empty response or 400 when ConstraintViolationException thrown
      */
     @GetMapping("/customer/{customerId}/account")
-    public Customer createNewAccount(@PathVariable int customerId,
-                                                   @RequestParam double initialCredit) {
-        if (initialCredit == 0) {
+    public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
+                                                   @RequestParam BigDecimal initialCredit) {
+        if (initialCredit.equals(0)) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
         } else {
-           customerService.saveNewAccount(customerId, initialCredit);
+         customerService.saveNewAccount(customerId, initialCredit);
         }
-        return customerService.getCustomerById(customerId);
+       return ResponseEntity.status(204).build();
     }
 }

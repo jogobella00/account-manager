@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +19,20 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
+    @NotNull
     private int customerId;
+
     @Column(name = "first_name")
+    @NotNull
     private String firstName;
+
     @Column(name = "lastName")
+    @NotNull
     private String lastName;
+
     @Formula("select sum(a.balance) from accounts a " +
             "where a.customer_id = customer_id")
-    private float balance;
+    private double balance;
 
     // name = 'customer_id' -> from accounts table
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
