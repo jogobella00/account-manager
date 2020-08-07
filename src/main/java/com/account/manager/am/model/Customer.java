@@ -8,6 +8,15 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Customer entity is representing Customer in Account-Manager app
+ * It has fields of
+ * - customer_id populated by H2 DB,
+ * - first_name mandatory String field,
+ * - last_name mandatory String field
+ * - balance double field, visible when retrieving Customer from the DB (getCustomerById method)
+ * @Formula annotation specifying SQL query to get sum of balance in all related to Customer Accounts
+ */
 @NoArgsConstructor
 @Getter
 @Setter
@@ -34,6 +43,7 @@ public class Customer {
             "where a.customer_id = customer_id")
     private double balance;
 
+    // field is present in accounts table, annotations here specifying relation Customer <-> Account
     // name = 'customer_id' -> from accounts table
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
@@ -44,6 +54,7 @@ public class Customer {
         this.lastName = lastName;
     }
 
+    // helper method to add in easier way new Accounts to Customer entity
     public void addAccount(Account account) {
 
         if (accounts == null) {

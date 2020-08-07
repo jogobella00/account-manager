@@ -4,6 +4,10 @@ import com.account.manager.am.model.Customer;
 
 import java.math.BigDecimal;
 
+/**
+ * CustomerService
+ * Consists all methods to operate on Customer entities
+ */
 public interface CustomerService {
 
     Customer getCustomerById(int customerId);

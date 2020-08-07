@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+/**
+ * Class for specifying data to load into in-memory H2 database at startup of the application
+ */
 @Component
 public class StartupDataLoad implements ApplicationRunner {
 
@@ -34,25 +37,28 @@ public class StartupDataLoad implements ApplicationRunner {
         loadNewCustomer("mark", "buffalo", BigDecimal.valueOf(-321531), BigDecimal.valueOf(999999), BigDecimal.valueOf(-15912.12));
     }
 
+    /**
+     * The method is creating new Customer with Accounts and Transactions
+     * @param firstName first name of the Customer - String
+     * @param lastName last name of the Customer - String
+     * @param valueOfTransaction1 - value of the first Transaction, will be assigned to Account no.1
+     * @param valueOfTransaction2 - value of the second Transaction, will be assigned to Account no.1
+     * @param valueOfTransaction3 - value of the third Transaction, will be assigned to Account no.2
+     */
     public void loadNewCustomer(String firstName, String lastName, BigDecimal valueOfTransaction1, BigDecimal valueOfTransaction2, BigDecimal valueOfTransaction3) {
 
-        Customer cust = new Customer(firstName, lastName);
-        Transaction transaction1 = new Transaction(valueOfTransaction1);
-        Transaction transaction2 = new Transaction(valueOfTransaction2);
-        Transaction transaction3 = new Transaction(valueOfTransaction3);
-        // TODO: do contructor with getting values of transactions
-        Account acc1 = new Account(transaction1.getValueOfTransaction().add(transaction2.getValueOfTransaction()));
+        Customer cust = new Customer(firstName, lastName); // create new Customer
 
-        Account acc2 = new Account(transaction3.getValueOfTransaction());
-        cust.addAccount(acc1);
-        cust.addAccount(acc2);
+        Transaction transaction2 = new Transaction(valueOfTransaction2); // created separated, the constructor of Account can receive only one argument with Transaction
 
-        acc1.addTransaction(transaction1);
-        acc1.addTransaction(transaction2);
-        acc2.addTransaction(transaction3);
+        Account acc1 = new Account(new Transaction(valueOfTransaction1)); // create new Account no.1
 
-        customerRepository.save(cust);
-        accountRepository.save(acc1);
-        accountRepository.save(acc2);
+        acc1.addTransaction(transaction2); // add to the Account no.1 Transaction
+
+        Account acc2 = new Account(new Transaction(valueOfTransaction3)); // create new Account no.2
+        cust.addAccount(acc1); // add Account no. 1 to the Customer
+        cust.addAccount(acc2); // add Account no. 2 to the Customer
+
+        customerRepository.save(cust); // save Customer into the DB
     }
 }

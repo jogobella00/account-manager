@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+/**
+ * CustomerServiceImpl
+ * Consists all implementations of the methods to operate on Customer entities
+ */
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -22,31 +26,32 @@ public class CustomerServiceImpl implements CustomerService {
         this.accountService = accountService;
     }
 
+    /**
+     * get Customer from DB by customerId
+     * @param customerId
+     * @return
+     */
     @Override
     public Customer getCustomerById(int customerId) {
         return customerRepository
                 .findById(customerId)
-                .orElseThrow(() -> new CustomerIdNotFoundException(customerId));
+                .orElseThrow(() -> new CustomerIdNotFoundException(customerId)); //if not found throw exception
     }
 
+    /**
+     * The method is receiving customerId and initialCredit
+     * If Customer is not found by ID, CustomerIdNotFoundException is thrown
+     * After Customer is found, there is created new Account and related to it Transaction
+     * then the Account is saved to current Customer and Customer is saved (updated) in the DB
+     * @param customerId int value
+     * @param initialCredit BigDecimal
+     */
     @Override
     public void saveNewAccount(int customerId, BigDecimal initialCredit) {
 
-        Customer customer = new Customer();
-
-        try {
-            customer = getCustomerById(customerId);
-        } catch (CustomerIdNotFoundException e) {
-            throw new CustomerIdNotFoundException(customerId);
-        }
-
-        Account newAccount = new Account(initialCredit);
-        Transaction newTransaction = new Transaction(initialCredit);
-
-        customer.addAccount(newAccount);
-        newAccount.addTransaction(newTransaction);
-
-        accountService.save(newAccount);
-        customerRepository.saveAndFlush(customer);
+        Customer customer = getCustomerById(customerId); // find Customer in the DB
+        Account newAccount = new Account(new Transaction(initialCredit)); // create new Account and related Transaction
+        customer.addAccount(newAccount); // add new Account to Customer
+        customerRepository.save(customer); // save Customer with all child entities
     }
 }

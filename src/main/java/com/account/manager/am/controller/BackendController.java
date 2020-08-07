@@ -62,6 +62,7 @@ public class BackendController {
         return customerService.getCustomerById(customerId);
     }
 
+    //TODO: exception for too big number (we don't service billionaires here)
     /**
      * Endpoint allows to create new Account of existing Customer
      * @throws com.account.manager.am.exception.CustomerIdNotFoundException if passed customerId cannot be found in the DB

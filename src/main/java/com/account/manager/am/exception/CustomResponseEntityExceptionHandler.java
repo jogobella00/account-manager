@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.validation.ConstraintViolationException;
-
+/**
+ * Class for managing throwing custom exceptions
+ */
 @ControllerAdvice
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(WrongInitialCreditException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // response code 400
+    @ExceptionHandler(WrongInitialCreditException.class) // when WrongInitialCreditException is thrown
     ResponseEntity<Object> handleWrongInitialCredit(WrongInitialCreditException ex, WebRequest request) {
         return handleExceptionInternal(
                 ex,
@@ -29,8 +30,8 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(CustomerIdNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND) // response code 404
+    @ExceptionHandler(CustomerIdNotFoundException.class) // when CustomerIdNotFoundException is thrown
     ResponseEntity<Object> handleCustomerIdNotFound(CustomerIdNotFoundException ex, WebRequest request) {
         return handleExceptionInternal(
                 ex,
