@@ -4,6 +4,7 @@ import com.account.manager.am.dao.CustomerRepository;
 import com.account.manager.am.exception.CustomerIdNotFoundException;
 import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
+import com.account.manager.am.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveNewAccount(int customerId, double initialCredit) {
-        // TODO: make it better
-        // TODO: add transactions
-        Customer cust = customerRepository
-                .findById(customerId).orElseThrow();
-        cust.addAccount(new Account(initialCredit));
-        customerRepository.save(cust);
+
+        Customer customer = new Customer();
+
+        try {
+            customer = getCustomerById(customerId);
+        } catch (CustomerIdNotFoundException e) {
+            throw new CustomerIdNotFoundException(customerId);
+        }
+
+        Account newAccount = new Account(initialCredit);
+        Transaction newTransaction = new Transaction(initialCredit);
+
+        customer.addAccount(newAccount);
+        newAccount.addTransaction(newTransaction);
+        customerRepository.save(customer);
+        accountService.save(newAccount);
     }
 }

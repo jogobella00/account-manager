@@ -71,13 +71,13 @@ public class BackendController {
      * @return 204 empty response or 400 when ConstraintViolationException thrown
      */
     @GetMapping("/customer/{customerId}/account")
-    public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
+    public Customer createNewAccount(@PathVariable int customerId,
                                                    @RequestParam double initialCredit) {
         if (initialCredit == 0) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
         } else {
-            customerService.saveNewAccount(customerId, initialCredit);
+           customerService.saveNewAccount(customerId, initialCredit);
         }
-        return ResponseEntity.status(204).build();
+        return customerService.getCustomerById(customerId);
     }
 }

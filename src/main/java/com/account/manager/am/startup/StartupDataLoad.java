@@ -27,25 +27,30 @@ public class StartupDataLoad implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Customer cust1 = new Customer("tom", "jag");
-        Transaction transaction1 = new Transaction(1000);
-        Transaction transaction2 = new Transaction(-500);
-        Transaction transaction3 = new Transaction(1554.32);
+        loadNewCustomer("tom", "jag", 1000, -500, 1554.32);
+        loadNewCustomer("bob", "smith", 2000, 10000, -1554.32);
+        loadNewCustomer("mark", "buffalo", -321531, 999999, -15912.12);
+    }
+
+    public void loadNewCustomer(String firstName, String lastName, double valueOfTransaction1, double valueOfTransaction2, double valueOfTransaction3) {
+
+        Customer cust = new Customer(firstName, lastName);
+        Transaction transaction1 = new Transaction(valueOfTransaction1);
+        Transaction transaction2 = new Transaction(valueOfTransaction2);
+        Transaction transaction3 = new Transaction(valueOfTransaction3);
         // TODO: do contructor with getting values of transactions
         Account acc1 = new Account(transaction1.getValueOfTransaction() + transaction2.getValueOfTransaction());
 
         Account acc2 = new Account(transaction3.getValueOfTransaction());
-        cust1.addAccount(acc1);
-        cust1.addAccount(acc2);
+        cust.addAccount(acc1);
+        cust.addAccount(acc2);
 
         acc1.addTransaction(transaction1);
         acc1.addTransaction(transaction2);
         acc2.addTransaction(transaction3);
 
-        customerRepository.save(cust1);
+        customerRepository.save(cust);
         accountRepository.save(acc1);
         accountRepository.save(acc2);
-//        transactionRepository.save(transaction1);
-
     }
 }
