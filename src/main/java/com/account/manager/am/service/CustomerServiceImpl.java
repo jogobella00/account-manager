@@ -1,7 +1,7 @@
 package com.account.manager.am.service;
 
-import com.account.manager.am.dao.AccountRepository;
 import com.account.manager.am.dao.CustomerRepository;
+import com.account.manager.am.exception.CustomerIdNotFoundException;
 import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(int customerId) {
-        // TODO: () -> CustomerNotFoundException(customerId)
-        return customerRepository.findById(customerId).orElseThrow();
+        return customerRepository.findById(customerId).orElseThrow(() -> new CustomerIdNotFoundException(customerId));
     }
 
     @Override

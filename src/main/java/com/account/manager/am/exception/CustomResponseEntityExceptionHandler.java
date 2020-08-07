@@ -27,4 +27,17 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
                 request
         );
     }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CustomerIdNotFoundException.class)
+    ResponseEntity<Object> handleCustomerIdNotFound(CustomerIdNotFoundException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                ex.getMessage(),
+                new HttpHeaders(),
+                HttpStatus.NOT_FOUND,
+                request
+        );
+    }
 }

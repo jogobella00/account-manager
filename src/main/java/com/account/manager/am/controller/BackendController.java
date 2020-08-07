@@ -32,8 +32,8 @@ public class BackendController {
     /**
      * By given customerId returns found customer with all related data
      * If not
-     * @throws customerIdNotFoundException
-     * @param customerId
+     * @throws com.account.manager.am.exception.CustomerIdNotFoundException
+     * @param customerId integer value
      * @return customer information: customerId, first name, last name, balance, transactions of the accounts
      *
      * {
@@ -62,7 +62,7 @@ public class BackendController {
 
     /**
      * Endpoint allows to create new Account of existing Customer
-     * @throws customerIdNotFoundException if passed customerId cannot be found in the DB
+     * @throws com.account.manager.am.exception.CustomerIdNotFoundException if passed customerId cannot be found in the DB
      * @throws ConstraintViolationException handled in {@link com.account.manager.am.exception.CustomResponseEntityExceptionHandler}
      * if value of initialCredit is smaller then 1 (400 response)
      * @param customerId integer value
