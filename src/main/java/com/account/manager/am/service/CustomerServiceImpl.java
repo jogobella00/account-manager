@@ -50,8 +50,14 @@ public class CustomerServiceImpl implements CustomerService {
     public void saveNewAccount(int customerId, BigDecimal initialCredit) {
 
         Customer customer = getCustomerById(customerId); // find Customer in the DB
-        Account newAccount = new Account(new Transaction(initialCredit)); // create new Account and related Transaction
+        Account newAccount = new Account(); // create new Account and related Transaction
+        accountService.addTransaction(newAccount, new Transaction(initialCredit));
         customer.addAccount(newAccount); // add new Account to Customer
         customerRepository.save(customer); // save Customer with all child entities
+    }
+
+    @Override
+    public void save(Customer customer) {
+        customerRepository.save(customer);
     }
 }

@@ -18,9 +18,11 @@ import java.util.List;
  * @Formula annotation specifying SQL query to get sum of balance in all related to Customer Accounts
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "customers")
 public class Customer {

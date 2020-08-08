@@ -1,6 +1,7 @@
 package com.account.manager.am.service;
 
 import com.account.manager.am.model.Account;
+import com.account.manager.am.model.Transaction;
 
 /**
  * AccountService
@@ -9,4 +10,6 @@ import com.account.manager.am.model.Account;
 public interface AccountService {
 
     void save(Account account);
+    void addTransaction(Account account, Transaction transaction);
+    void sumTransactions(Account account);
 }

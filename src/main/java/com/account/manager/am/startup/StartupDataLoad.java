@@ -6,9 +6,11 @@ import com.account.manager.am.dao.TransactionRepository;
 import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
 import com.account.manager.am.model.Transaction;
+import com.account.manager.am.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -19,20 +21,20 @@ import java.math.BigDecimal;
 @Component
 public class StartupDataLoad implements ApplicationRunner {
 
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
     private final CustomerRepository customerRepository;
     private final TransactionRepository transactionRepository;
 
     @Autowired
-    public StartupDataLoad(AccountRepository accountRepository, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
-        this.accountRepository = accountRepository;
+    public StartupDataLoad(AccountService accountService, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
+        this.accountService = accountService;
         this.customerRepository = customerRepository;
         this.transactionRepository = transactionRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        loadNewCustomer("tom", "jag", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
+        loadNewCustomer("tom12312", "jag", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
         loadNewCustomer("bob", "smith", BigDecimal.valueOf(2000), BigDecimal.valueOf(10000), BigDecimal.valueOf(-1554.32));
         loadNewCustomer("mark", "buffalo", BigDecimal.valueOf(-321531), BigDecimal.valueOf(999999), BigDecimal.valueOf(-15912.12));
     }
@@ -51,11 +53,13 @@ public class StartupDataLoad implements ApplicationRunner {
 
         Transaction transaction2 = new Transaction(valueOfTransaction2); // created separated, the constructor of Account can receive only one argument with Transaction
 
-        Account acc1 = new Account(new Transaction(valueOfTransaction1)); // create new Account no.1
+        Account acc1 = new Account(); // create new Account no.1
+        accountService.addTransaction(acc1, new Transaction(valueOfTransaction1));
 
-        acc1.addTransaction(transaction2); // add to the Account no.1 Transaction
+        accountService.addTransaction(acc1, transaction2); // add to the Account no.1 Transaction
 
-        Account acc2 = new Account(new Transaction(valueOfTransaction3)); // create new Account no.2
+        Account acc2 = new Account(); // create new Account no.2
+        accountService.addTransaction(acc2, new Transaction(valueOfTransaction3));
         cust.addAccount(acc1); // add Account no. 1 to the Customer
         cust.addAccount(acc2); // add Account no. 2 to the Customer
 

@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
@@ -58,24 +59,24 @@ public class BackendController {
      * }
      */
     @GetMapping("/customer/{customerId}")
+    @ResponseBody
     public Customer getCustomer(@PathVariable int customerId) {
         return customerService.getCustomerById(customerId);
     }
 
-    //TODO: exception for too big number (we don't service billionaires here)
     /**
      * Endpoint allows to create new Account of existing Customer
      * @throws com.account.manager.am.exception.CustomerIdNotFoundException if passed customerId cannot be found in the DB
      * @throws ConstraintViolationException handled in {@link com.account.manager.am.exception.CustomResponseEntityExceptionHandler}
      * if value of initialCredit is smaller then 1 (400 response)
      * @param customerId integer value
-     * @param initialCredit double value, bigger than 0
+     * @param initialCredit BigDecimal value, bigger than 0
      * @return 204 empty response or 400 when ConstraintViolationException thrown
      */
     @GetMapping("/customer/{customerId}/account")
     public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
-                                                   @RequestParam BigDecimal initialCredit) {
-        if (initialCredit.equals(0)) {
+                                                   @RequestParam @Max(1000000000) BigDecimal initialCredit) {
+        if (initialCredit.equals(BigDecimal.valueOf(0))) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
         } else {
          customerService.saveNewAccount(customerId, initialCredit);

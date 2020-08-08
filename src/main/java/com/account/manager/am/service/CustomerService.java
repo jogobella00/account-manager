@@ -12,4 +12,5 @@ public interface CustomerService {
 
     Customer getCustomerById(int customerId);
     void saveNewAccount(int customerId, BigDecimal initialCredit);
+    void save(Customer customer);
 }

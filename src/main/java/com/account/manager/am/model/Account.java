@@ -1,9 +1,6 @@
 package com.account.manager.am.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,9 +20,11 @@ import java.util.List;
  * so one Customer can have many Accounts
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "accounts")
 public class Account {
@@ -52,19 +51,18 @@ public class Account {
     // constructor when creating new Account, is creating transaction related to it
     public Account(Transaction transaction) {
         this.balance = transaction.getValueOfTransaction();
-        addTransaction(transaction);
     }
 
-    // helper method to add in easier way new Transactions to Account entity
-    // after each addition of Transaction, the new Transaction is calculated into total balance of the Account
-    public void addTransaction(Transaction transaction) {
-
-        if (transactions == null) {
-            transactions = new ArrayList<>();
-        }
-        transactions.add(transaction);
-        setBalance(transactions.stream()
-                .map(Transaction::getValueOfTransaction) // get valueOfTransaction of each Transaction in the list
-                .reduce(BigDecimal.ZERO, BigDecimal::add)); // add all of them, starting from 0
-    }
+//    // helper method to add in easier way new Transactions to Account entity
+//    // after each addition of Transaction, the new Transaction is calculated into total balance of the Account
+//    public void addTransaction(Transaction transaction) {
+//
+//        if (transactions == null) {
+//            transactions = new ArrayList<>();
+//        }
+//        transactions.add(transaction);
+//        setBalance(transactions.stream()
+//                .map(Transaction::getValueOfTransaction) // get valueOfTransaction of each Transaction in the list
+//                .reduce(BigDecimal.ZERO, BigDecimal::add)); // add all of them, starting from 0
+//    }
 }

@@ -1,9 +1,6 @@
 package com.account.manager.am.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,9 +16,11 @@ import java.math.BigDecimal;
  * so one Account can have many Transactions
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 @Entity
 @Table(name = "transactions")
 public class Transaction {
