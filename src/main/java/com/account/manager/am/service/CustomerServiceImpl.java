@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * CustomerServiceImpl
@@ -52,12 +53,21 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = getCustomerById(customerId); // find Customer in the DB
         Account newAccount = new Account(); // create new Account and related Transaction
         accountService.addTransaction(newAccount, new Transaction(initialCredit));
-        customer.addAccount(newAccount); // add new Account to Customer
+        addAccount(customer, newAccount); // add new Account to Customer
         customerRepository.save(customer); // save Customer with all child entities
     }
 
     @Override
-    public void save(Customer customer) {
-        customerRepository.save(customer);
+    public Customer save(Customer customer) {
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public void addAccount(Customer customer, Account account) {
+        if (customer.getAccounts() == null) {
+            customer.setAccounts(new ArrayList<>());
+        }
+
+        customer.getAccounts().add(account);
     }
 }

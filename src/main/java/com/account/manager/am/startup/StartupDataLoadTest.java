@@ -1,6 +1,5 @@
 package com.account.manager.am.startup;
 
-import com.account.manager.am.dao.AccountRepository;
 import com.account.manager.am.dao.CustomerRepository;
 import com.account.manager.am.dao.TransactionRepository;
 import com.account.manager.am.model.Account;
@@ -16,19 +15,16 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-/**
- * Class for specifying data to load into in-memory H2 database at startup of the application
- */
 @Component
-@Profile("dev")
-public class StartupDataLoad implements ApplicationRunner {
+@Profile("test")
+public class StartupDataLoadTest implements ApplicationRunner {
 
     private final AccountService accountService;
     private final CustomerService customerService;
     private final TransactionRepository transactionRepository;
 
     @Autowired
-    public StartupDataLoad(AccountService accountService, CustomerService customerService, TransactionRepository transactionRepository) {
+    public StartupDataLoadTest(AccountService accountService, CustomerService customerService, TransactionRepository transactionRepository) {
         this.accountService = accountService;
         this.customerService = customerService;
         this.transactionRepository = transactionRepository;
@@ -36,7 +32,7 @@ public class StartupDataLoad implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        loadNewCustomer("tom12312", "jag", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
+        loadNewCustomer("test", "test2", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
         loadNewCustomer("bob", "smith", BigDecimal.valueOf(2000), BigDecimal.valueOf(10000), BigDecimal.valueOf(-1554.32));
         loadNewCustomer("mark", "buffalo", BigDecimal.valueOf(-321531), BigDecimal.valueOf(999999), BigDecimal.valueOf(-15912.12));
     }

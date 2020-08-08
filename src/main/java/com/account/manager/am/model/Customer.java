@@ -47,22 +47,12 @@ public class Customer {
 
     // field is present in accounts table, annotations here specifying relation Customer <-> Account
     // name = 'customer_id' -> from accounts table
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private List<Account> accounts;
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    // helper method to add in easier way new Accounts to Customer entity
-    public void addAccount(Account account) {
-
-        if (accounts == null) {
-            accounts = new ArrayList<>();
-        }
-
-        accounts.add(account);
     }
 }
