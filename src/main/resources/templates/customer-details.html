@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Details</title>
+</head>
+<body>
+    <h3>Customer Details</h3>
+    <hr>
+    <h4 th:text="${customer.firstName + ' ' + customer.lastName}"></h4>
+    <p th:text="${'Balance: ' + customer.balance}"></p>
+</body>
+</html>

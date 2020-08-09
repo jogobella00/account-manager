@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * CustomerServiceImpl
@@ -73,5 +74,10 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setAccounts(new ArrayList<>()); // create empty list
         }
         customer.getAccounts().add(account); // add Account passed in the argument
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
     }
 }

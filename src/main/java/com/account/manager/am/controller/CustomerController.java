@@ -5,6 +5,7 @@ import com.account.manager.am.model.Customer;
 import com.account.manager.am.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +22,13 @@ import java.math.BigDecimal;
 @Validated
 @RestController
 @RequestMapping("/v1")
-public class BackendController {
+public class CustomerController {
 
     // access to services through interfaces
     private final CustomerService customerService;
 
     @Autowired
-    public BackendController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -82,4 +83,5 @@ public class BackendController {
         }
        return ResponseEntity.status(204).build();
     }
+
 }

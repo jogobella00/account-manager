@@ -6,7 +6,6 @@ import com.account.manager.am.exception.WrongInitialCreditException;
 import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
 import com.account.manager.am.model.Transaction;
-import com.account.manager.am.service.AccountService;
 import com.account.manager.am.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -36,15 +35,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Tests for methods in BackendController
  * Checking if they're returning proper Object and throwing proper Exceptions
  */
-@WebMvcTest(BackendController.class)
+@WebMvcTest(CustomerController.class)
 @DisplayName("Test BackendController method")
-public class BackendControllerTest {
+public class CustomerControllerTest {
 
     @MockBean
     CustomerService customerService;
 
     @Mock
-    BackendController backendController;
+    CustomerController customerController;
 
     @Autowired
     MockMvc mockMvc;
@@ -68,7 +67,7 @@ public class BackendControllerTest {
                 .accounts(new ArrayList<>(List.of(account)))
                 .build();
         // set up BackendController with CustomResponseEntityExceptionHandler
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new CustomResponseEntityExceptionHandler(), backendController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new CustomResponseEntityExceptionHandler(), customerController).build();
     }
 
     /**
@@ -78,7 +77,7 @@ public class BackendControllerTest {
     @Test
     @DisplayName("GET Customer by ID - check output JSON")
     void getCustomerByIdTest() throws Exception {
-        given(backendController.getCustomer(anyInt())).willReturn(validCustomer);
+        given(customerController.getCustomer(anyInt())).willReturn(validCustomer);
 
         mockMvc.perform(get("/v1/customer/" + validCustomer.getCustomerId()))
                 .andExpect(status().isOk())
@@ -109,7 +108,7 @@ public class BackendControllerTest {
     @DisplayName("GET Customer by ID - not found")
     public void getCustomerById_IdNotFoundTest() throws Exception {
         int customerId = 4;
-        when(backendController.getCustomer(customerId)).thenThrow(new CustomerIdNotFoundException(customerId));
+        when(customerController.getCustomer(customerId)).thenThrow(new CustomerIdNotFoundException(customerId));
 
         mockMvc.perform(get("/v1/customer/" + customerId))
                 .andExpect(status().isNotFound())
@@ -123,7 +122,7 @@ public class BackendControllerTest {
     @Test
     @DisplayName("GET create new Account - too big number")
     public void createNewAccount_initialCreditTooLongTest() throws Exception {
-        when(backendController.createNewAccount(1, BigDecimal.valueOf(1000000000))).thenThrow(new ConstraintViolationException("",null));
+        when(customerController.createNewAccount(1, BigDecimal.valueOf(1000000000))).thenThrow(new ConstraintViolationException("",null));
 
         mockMvc.perform(get("/v1/customer/1/account")
                 .queryParam("initialCredit","1000000000"))
@@ -137,7 +136,7 @@ public class BackendControllerTest {
     @Test
     @DisplayName("GET create new Account - initialCredit 0")
     public void createNewAccount_initialCreditIsZeroTest() throws Exception {
-        when(backendController.createNewAccount(1, BigDecimal.valueOf(0))).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
+        when(customerController.createNewAccount(1, BigDecimal.valueOf(0))).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
 
         mockMvc.perform(get("/v1/customer/1/account")
                 .queryParam("initialCredit","0"))

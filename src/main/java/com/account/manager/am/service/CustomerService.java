@@ -4,6 +4,7 @@ import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * CustomerService
@@ -15,4 +16,5 @@ public interface CustomerService {
     void saveNewAccount(int customerId, BigDecimal initialCredit);
     Customer save(Customer customer);
     void addAccount(Customer customer, Account account);
+    List<Customer> findAll();
 }
