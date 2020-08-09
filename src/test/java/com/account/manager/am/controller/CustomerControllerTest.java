@@ -28,6 +28,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -128,7 +129,7 @@ public class CustomerControllerTest {
     public void createNewAccount_initialCreditTooLongTest() throws Exception {
         when(customerController.createNewAccount(1, BigDecimal.valueOf(1000000000))).thenThrow(new ConstraintViolationException("",null));
 
-        mockMvc.perform(get("/v1/customer/1/account")
+        mockMvc.perform(post("/v1/customer/1/account")
                 .queryParam("initialCredit","1000000000"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", is("You want to transfer too much money! Maximum amount is 999999999")));
@@ -142,7 +143,7 @@ public class CustomerControllerTest {
     public void createNewAccount_initialCreditIsZeroTest() throws Exception {
         when(customerController.createNewAccount(1, BigDecimal.valueOf(0))).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
 
-        mockMvc.perform(get("/v1/customer/1/account")
+        mockMvc.perform(post("/v1/customer/1/account")
                 .queryParam("initialCredit","0"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", is("You cannot do transfer with no money!")));

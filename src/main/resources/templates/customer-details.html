@@ -8,5 +8,23 @@
     <hr>
     <h4 th:text="${customer.firstName + ' ' + customer.lastName}"></h4>
     <p th:text="${'Balance: ' + customer.balance}"></p>
+
+    <table th:each="account : ${customer.accounts}" border="1">
+        <caption th:text="${'Account Name ' + account.name}"></caption>
+        <tr>
+            <th>Transaction No.</th>
+            <th>Value of Transaction</th>
+        </tr>
+        <tr th:each="transaction : ${account.transactions}">
+            <td th:text="${transaction.transactionId}"></td>
+            <td th:text="${transaction.valueOfTransaction}"></td>
+        </tr>
+        <p th:text="'Account balance: ' + ${account.balance}"></p>
+    </table>
+
+    <br>
+    <a th:href="@{/customer/list}">Come back to Customer List</a>
+    <br>
+    <a th:href="@{/}">Home Page</a>
 </body>
 </html>

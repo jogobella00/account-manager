@@ -73,7 +73,7 @@ public class CustomerController {
      * @param initialCredit BigDecimal value, bigger than 0
      * @return 204 empty response or 400 when ConstraintViolationException thrown
      */
-    @GetMapping("/customer/{customerId}/account")
+    @PostMapping("/customer/{customerId}/account")
     public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
                                                    @RequestParam @Max(1000000000) BigDecimal initialCredit) {
         if (initialCredit.equals(BigDecimal.valueOf(0))) {

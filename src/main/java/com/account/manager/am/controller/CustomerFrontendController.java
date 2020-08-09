@@ -34,4 +34,10 @@ public class CustomerFrontendController {
         model.addAttribute("customer", customerService.getCustomerById(customerId));
         return "customer-details";
     }
+
+    @GetMapping("newTransfer")
+    public String newTransfer(@RequestParam("customerId") int customerId, Model model) {
+        model.addAttribute("customer", customerService.getCustomerById(customerId));
+        return "newTransfer";
+    }
 }

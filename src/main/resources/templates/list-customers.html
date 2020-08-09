@@ -16,6 +16,7 @@
                 <th>Last Name</th>
                 <th>Balance</th>
                 <th>Details</th>
+                <th>New Transfer</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@
                 <td th:text="${customer.balance}"/>
                 <td>
                     <a th:href="@{/showCustomerDetails(customerId=${customer.customerId})}">Go to details</a>
+                </td>
+                <td>
+                    <a th:href="@{/newTransfer(customerId=${customer.customerId})}">Do a new Transfer</a>
                 </td>
             </tr>
         </tbody>
