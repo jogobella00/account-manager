@@ -6,7 +6,12 @@
 </head>
 <body>
     <h3>Make a new transfer</h3>
+    <br>
+    <p th:text="'Customer: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></p>
 
-<!--    <form action="#" th:action="@{/v1/customer}"-->
+    <form th:action="@{/saveTransfer/{customerId}(customerId=${customer.customerId})}" th:method="post">
+        <input type="text" placeholder="Value of Transaction" th:name="initialCredit" th:maxlength="9" value="100">
+        <button type="submit">Save a Transfer</button>
+    </form>
 </body>
 </html>

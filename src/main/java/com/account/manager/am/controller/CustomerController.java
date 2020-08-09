@@ -4,10 +4,12 @@ import com.account.manager.am.exception.WrongInitialCreditException;
 import com.account.manager.am.model.Customer;
 import com.account.manager.am.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Max;
@@ -75,7 +77,7 @@ public class CustomerController {
      */
     @PostMapping("/customer/{customerId}/account")
     public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
-                                                   @RequestParam @Max(1000000000) BigDecimal initialCredit) {
+                                                   @RequestParam @Max(1000000000) @NumberFormat BigDecimal initialCredit) {
         if (initialCredit.equals(BigDecimal.valueOf(0))) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
         } else {
