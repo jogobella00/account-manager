@@ -35,6 +35,10 @@ public class Account {
     @NotNull
     private int accountId;
 
+    // default length is 255
+    @Column(name = "account_name")
+    private String name;
+
     @Column(name = "balance", precision = 11, scale = 2)
     @NotNull
     private BigDecimal balance;
@@ -44,25 +48,12 @@ public class Account {
     @JoinColumn(name = "account_id")
     private List<Transaction> transactions;
 
-    public Account(BigDecimal balance) {
+    public Account(String name, BigDecimal balance) {
         this.balance = balance;
+        this.name = name;
     }
 
-    // constructor when creating new Account, is creating transaction related to it
-    public Account(Transaction transaction) {
-        this.balance = transaction.getValueOfTransaction();
+    public Account(String name) {
+        this.name = name;
     }
-
-//    // helper method to add in easier way new Transactions to Account entity
-//    // after each addition of Transaction, the new Transaction is calculated into total balance of the Account
-//    public void addTransaction(Transaction transaction) {
-//
-//        if (transactions == null) {
-//            transactions = new ArrayList<>();
-//        }
-//        transactions.add(transaction);
-//        setBalance(transactions.stream()
-//                .map(Transaction::getValueOfTransaction) // get valueOfTransaction of each Transaction in the list
-//                .reduce(BigDecimal.ZERO, BigDecimal::add)); // add all of them, starting from 0
-//    }
 }

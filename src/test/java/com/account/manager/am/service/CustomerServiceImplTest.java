@@ -37,6 +37,7 @@ public class CustomerServiceImplTest {
         transactionList.add(new Transaction(BigDecimal.valueOf(1000)));
         Account account = Account.builder()
                 .accountId(1)
+                .name("testAccount")
                 .balance(BigDecimal.valueOf(1000))
                 .transactions(transactionList)
                 .build();

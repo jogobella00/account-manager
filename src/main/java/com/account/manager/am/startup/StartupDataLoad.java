@@ -55,12 +55,12 @@ public class StartupDataLoad implements ApplicationRunner {
 
         Transaction transaction2 = new Transaction(valueOfTransaction2); // created separated, the constructor of Account can receive only one argument with Transaction
 
-        Account acc1 = new Account(); // create new Account no.1
+        Account acc1 = new Account("personal"); // create new Account no.1
         accountService.addTransaction(acc1, new Transaction(valueOfTransaction1));
 
         accountService.addTransaction(acc1, transaction2); // add to the Account no.1 Transaction
 
-        Account acc2 = new Account(); // create new Account no.2
+        Account acc2 = new Account("professional"); // create new Account no.2
         accountService.addTransaction(acc2, new Transaction(valueOfTransaction3));
         customerService.addAccount(cust, acc1); // add Account no. 1 to the Customer
         customerService.addAccount(cust, acc2); // add Account no. 2 to the Customer

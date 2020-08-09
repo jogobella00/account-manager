@@ -56,7 +56,7 @@ public class CustomerControllerTest {
         Transaction transaction = new Transaction(BigDecimal.valueOf(9999));
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
-        Account account = new Account(BigDecimal.valueOf(9999));
+        Account account = new Account("personal", BigDecimal.valueOf(9999));
         account.setTransactions(transactions);
         // create Customer object
         validCustomer = Customer.builder()
@@ -86,6 +86,10 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.firstName", is(validCustomer.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(validCustomer.getLastName())))
                 .andExpect(jsonPath("$.balance", is(validCustomer.getBalance())))
+                .andExpect(jsonPath("$.accounts[0].name",
+                        is(validCustomer.getAccounts()
+                                .get(0)
+                                .getName())))
                 .andExpect(jsonPath("$.accounts[0].balance",
                         is(validCustomer.getAccounts()
                                 .get(0)

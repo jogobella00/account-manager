@@ -39,6 +39,7 @@ public class AccountServiceImplTest {
         transactionList.add(new Transaction(BigDecimal.valueOf(1000)));
         account = Account.builder()
                 .accountId(1)
+                .name("testAccount")
                 .balance(BigDecimal.valueOf(1000))
                 .transactions(transactionList)
                 .build();
@@ -57,6 +58,7 @@ public class AccountServiceImplTest {
     public void addTransaction_EmptyTransactionListTest() {
         account = Account.builder()
                 .accountId(1)
+                .name("testAccount")
                 .balance(BigDecimal.valueOf(0))
                 .build();
 
@@ -75,6 +77,7 @@ public class AccountServiceImplTest {
         transactionList.add(new Transaction(BigDecimal.valueOf(1000)));
         account = Account.builder()
                 .accountId(1)
+                .name("testAccount")
                 .balance(BigDecimal.valueOf(1000))
                 .transactions(transactionList)
                 .build();

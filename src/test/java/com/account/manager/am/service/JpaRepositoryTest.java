@@ -43,7 +43,7 @@ public class JpaRepositoryTest {
     @BeforeEach
     void setUp() {
         Transaction transaction = new Transaction(BigDecimal.valueOf(1000));
-        Account account = new Account();
+        Account account = new Account("testAccount");
         accountService.addTransaction(account, transaction);
         customer = new Customer("bobo", "srobo");
         customerService.addAccount(customer, account);
@@ -85,7 +85,7 @@ public class JpaRepositoryTest {
         customerToTest = customerService.getCustomerById(1);
         customerService.saveNewAccount(1, BigDecimal.valueOf(1234));
 
-        Account newAccount = new Account();
+        Account newAccount = new Account("testAccount");
         Transaction newTransaction = new Transaction(BigDecimal.valueOf(1234));
         accountService.addTransaction(newAccount, newTransaction);
         customerService.addAccount(customerToTest, newAccount);
