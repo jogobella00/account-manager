@@ -17,7 +17,10 @@
         </div>
 
         <table th:each="account : ${customer.accounts}" align="center">
-            <caption th:text="${'Account Name ' + account.name}"></caption>
+            <div class="table-caption">
+                <caption th:text="${'Account name: ' + account.name}"></caption>
+                <caption th:text="'Account balance: ' + ${account.balance}"></caption>
+            </div>
             <tr>
                 <th>Transaction No.</th>
                 <th>Value of Transaction</th>
@@ -26,7 +29,6 @@
                 <td th:text="${transaction.transactionId}"></td>
                 <td th:text="${transaction.valueOfTransaction}"></td>
             </tr>
-            <p th:text="'Account balance: ' + ${account.balance}"></p>
         </table>
     </div>
     <div class="footer">

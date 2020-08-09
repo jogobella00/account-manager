@@ -83,7 +83,7 @@ public class JpaRepositoryTest {
     public void createNewAccountTest() {
 
         customerToTest = customerService.getCustomerById(1);
-        customerService.saveNewAccount(1, BigDecimal.valueOf(1234));
+        customerService.saveNewAccount(1, BigDecimal.valueOf(1234), "test");
 
         Account newAccount = new Account("testAccount");
         Transaction newTransaction = new Transaction(BigDecimal.valueOf(1234));

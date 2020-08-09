@@ -127,7 +127,7 @@ public class CustomerControllerTest {
     @Test
     @DisplayName("GET create new Account - too big number")
     public void createNewAccount_initialCreditTooLongTest() throws Exception {
-        when(customerController.createNewAccount(1, BigDecimal.valueOf(1000000000))).thenThrow(new ConstraintViolationException("",null));
+        when(customerController.createNewAccount(1, BigDecimal.valueOf(1000000000), "test")).thenThrow(new ConstraintViolationException("",null));
 
         mockMvc.perform(post("/v1/customer/1/account")
                 .queryParam("initialCredit","1000000000"))
@@ -141,7 +141,7 @@ public class CustomerControllerTest {
     @Test
     @DisplayName("GET create new Account - initialCredit 0")
     public void createNewAccount_initialCreditIsZeroTest() throws Exception {
-        when(customerController.createNewAccount(1, BigDecimal.valueOf(0))).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
+        when(customerController.createNewAccount(1, BigDecimal.valueOf(0), "test")).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
 
         mockMvc.perform(post("/v1/customer/1/account")
                 .queryParam("initialCredit","0"))

@@ -51,11 +51,12 @@ public class CustomerFrontendController {
 
     @PostMapping("/saveTransfer/{customerId}")
     public String saveTransfer(@PathVariable("customerId") int customerId,
-                               @RequestParam(value = "initialCredit") @Max(1000000000) @NumberFormat BigDecimal initialCredit) {
+                               @RequestParam(value = "initialCredit") @Max(1000000000) @NumberFormat BigDecimal initialCredit,
+                               @RequestParam(value = "accountName") String accountName) {
         if (initialCredit.equals(BigDecimal.valueOf(0))) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
         } else {
-            customerService.saveNewAccount(customerId,initialCredit);
+            customerService.saveNewAccount(customerId,initialCredit, accountName);
         }
         return "redirect:/customer/list";
     }

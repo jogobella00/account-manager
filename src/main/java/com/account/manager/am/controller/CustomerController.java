@@ -77,11 +77,12 @@ public class CustomerController {
      */
     @PostMapping("/customer/{customerId}/account")
     public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
-                                                   @RequestParam @Max(1000000000) @NumberFormat BigDecimal initialCredit) {
+                                                   @RequestParam(value = "initialCredit") @Max(1000000000) @NumberFormat BigDecimal initialCredit,
+                                                   @RequestParam(value = "accountName") String accountName) {
         if (initialCredit.equals(BigDecimal.valueOf(0))) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
         } else {
-         customerService.saveNewAccount(customerId, initialCredit);
+         customerService.saveNewAccount(customerId, initialCredit, accountName);
         }
        return ResponseEntity.status(204).build();
     }

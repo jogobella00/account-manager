@@ -36,9 +36,9 @@ public class StartupDataLoad implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        loadNewCustomer("tom12312", "jag", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
-        loadNewCustomer("bob", "smith", BigDecimal.valueOf(2000), BigDecimal.valueOf(10000), BigDecimal.valueOf(-1554.32));
-        loadNewCustomer("mark", "buffalo", BigDecimal.valueOf(-321531), BigDecimal.valueOf(999999), BigDecimal.valueOf(-15912.12));
+        loadNewCustomer("Maria", "Spring", BigDecimal. valueOf(1000), BigDecimal.valueOf(-500), BigDecimal.valueOf(1554.32));
+        loadNewCustomer("Bob", "Smith", BigDecimal.valueOf(2000), BigDecimal.valueOf(10000), BigDecimal.valueOf(-1554.32));
+        loadNewCustomer("Mark", "Buffalo", BigDecimal.valueOf(-321531), BigDecimal.valueOf(999999), BigDecimal.valueOf(-15912.12));
     }
 
     /**

@@ -49,10 +49,10 @@ public class CustomerServiceImpl implements CustomerService {
      * @param initialCredit BigDecimal
      */
     @Override
-    public void saveNewAccount(int customerId, BigDecimal initialCredit) {
+    public void saveNewAccount(int customerId, BigDecimal initialCredit, String accountName) {
 
         Customer customer = getCustomerById(customerId); // find Customer in the DB
-        Account newAccount = new Account(); // create new Account and related Transaction
+        Account newAccount = new Account(accountName); // create new Account and related Transaction
         accountService.addTransaction(newAccount, new Transaction(initialCredit)); // add Transaction to the Account
         addAccount(customer, newAccount); // add new Account to Customer
         customerRepository.save(customer); // save Customer with all child entities

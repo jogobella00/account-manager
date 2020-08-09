@@ -23,9 +23,15 @@
     font-weight: bold;
 }
 
+.table-caption {
+    padding: 10px;
+}
+
+
 .footer {
     text-align: center;
 }
+
 /* Table styles */
 table {
     border-spacing: 0;

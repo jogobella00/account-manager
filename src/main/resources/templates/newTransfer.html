@@ -2,16 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}"/>
     <title>Make a new transfer</title>
 </head>
 <body>
-    <h3>Make a new transfer</h3>
-    <br>
-    <p th:text="'Customer: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></p>
-
-    <form th:action="@{/saveTransfer/{customerId}(customerId=${customer.customerId})}" th:method="post">
-        <input type="text" placeholder="Value of Transaction" th:name="initialCredit" th:maxlength="9" value="100">
-        <button type="submit">Save a Transfer</button>
-    </form>
+<div class="container">
+    <div class="header">
+        <h2>Make a new transfer</h2>
+        <br>
+        <div class="customerName"
+        <p th:text="'Customer: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></p>
+    </div>
+    <div class="main-area">
+            <form th:action="@{/saveTransfer/{customerId}(customerId=${customer.customerId})}" th:method="post">
+                <br>
+                Value of Transaction
+                <br>
+                <input type="text" placeholder="Value of Transaction" th:name="initialCredit" th:maxlength="9"
+                       value="100">
+                <br>
+                <br>
+                Account Name
+                <br>
+                <input type="text" placeholder="Account Name" th:name="accountName" value="new account">
+                <br>
+                <br>
+                <button type="submit">Save a Transfer</button>
+                <br>
+            </form>
+    </div>
+</div>
+</div>
 </body>
 </html>

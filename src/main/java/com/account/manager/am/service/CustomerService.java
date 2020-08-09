@@ -13,7 +13,7 @@ import java.util.List;
 public interface CustomerService {
 
     Customer getCustomerById(int customerId);
-    void saveNewAccount(int customerId, BigDecimal initialCredit);
+    void saveNewAccount(int customerId, BigDecimal initialCredit, String accountName);
     Customer save(Customer customer);
     void addAccount(Customer customer, Account account);
     List<Customer> findAll();
