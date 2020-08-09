@@ -21,6 +21,9 @@ public class CustomerControllerTestIT {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    String queryParam1 = "initialCredit";
+    String queryParam2 = "accountName";
+
     /**
      * Check if call for the ID is returning the same
      */
@@ -29,7 +32,7 @@ public class CustomerControllerTestIT {
     void getCustomerTest() {
         Customer customer = restTemplate.getForObject("/v1/customer/1", Customer.class);
 
-        assertEquals(1 ,customer.getCustomerId());
+        assertEquals(1, customer.getCustomerId());
     }
 
     /**
@@ -38,7 +41,10 @@ public class CustomerControllerTestIT {
     @Test
     @DisplayName("Response after proper call createNewAccount()")
     void createNewAccountTest() {
-        ResponseEntity<String> response = restTemplate.postForEntity("/v1/customer/1/account?initialCredit=1111", String.class, String.class);
+        ResponseEntity<String> response = restTemplate
+                .postForEntity("/v1/customer/1/account?" + queryParam1 + "=1111&" + queryParam2 + "=test",
+                        String.class,
+                        String.class);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
@@ -48,7 +54,10 @@ public class CustomerControllerTestIT {
     @Test
     @DisplayName("0 as initialCredit")
     void createNewAccount_initialCreditZeroTest() {
-        ResponseEntity<String> response = restTemplate.postForEntity("/v1/customer/1/account?initialCredit=0", String.class, String.class);
+        ResponseEntity<String> response = restTemplate
+                .postForEntity("/v1/customer/1/account?" + queryParam1 + "=0&" + queryParam2 + "=test",
+                        String.class,
+                        String.class);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().contains("You cannot do transfer with no money!"));
@@ -60,8 +69,11 @@ public class CustomerControllerTestIT {
     @DisplayName("Too big number as initial Credit")
     @Test
     void createNewAccount_initialCreditTooLongTest() {
-        ResponseEntity<String> response = restTemplate.postForEntity("/v1/customer/1/account?initialCredit=9999999999", String.class, String.class);
-        assertEquals(HttpStatus.BAD_REQUEST ,response.getStatusCode());
+        ResponseEntity<String> response = restTemplate
+                .postForEntity("/v1/customer/1/account?initialCredit=9999999999&" + queryParam2 + "=test",
+                        String.class,
+                        String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().contains("You want to transfer too much money! Maximum amount is 999999999"));
     }

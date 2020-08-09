@@ -130,7 +130,8 @@ public class CustomerControllerTest {
         when(customerController.createNewAccount(1, BigDecimal.valueOf(1000000000), "test")).thenThrow(new ConstraintViolationException("",null));
 
         mockMvc.perform(post("/v1/customer/1/account")
-                .queryParam("initialCredit","1000000000"))
+                .queryParam("initialCredit","1000000000")
+                .queryParam("accountName", "test"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", is("You want to transfer too much money! Maximum amount is 999999999")));
     }
@@ -144,7 +145,8 @@ public class CustomerControllerTest {
         when(customerController.createNewAccount(1, BigDecimal.valueOf(0), "test")).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
 
         mockMvc.perform(post("/v1/customer/1/account")
-                .queryParam("initialCredit","0"))
+                .queryParam("initialCredit","0")
+                .queryParam("accountName", "test"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message", is("You cannot do transfer with no money!")));
     }
