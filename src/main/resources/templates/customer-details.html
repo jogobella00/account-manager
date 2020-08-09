@@ -1,30 +1,40 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}"/>
     <title>Customer Details</title>
 </head>
 <body>
-    <h3>Customer Details</h3>
+<div class="container">
+    <div class="header">
+        <h2>Customer Details</h2>
+    </div>
     <hr>
-    <h4 th:text="${customer.firstName + ' ' + customer.lastName}"></h4>
-    <p th:text="${'Balance: ' + customer.balance}"></p>
+    <div class="main-area">
+        <div class="customerName">
+            <p th:text="${customer.firstName + ' ' + customer.lastName}"></p>
+            <p th:text="${'Balance: ' + customer.balance}"></p>
+        </div>
 
-    <table th:each="account : ${customer.accounts}" border="1">
-        <caption th:text="${'Account Name ' + account.name}"></caption>
-        <tr>
-            <th>Transaction No.</th>
-            <th>Value of Transaction</th>
-        </tr>
-        <tr th:each="transaction : ${account.transactions}">
-            <td th:text="${transaction.transactionId}"></td>
-            <td th:text="${transaction.valueOfTransaction}"></td>
-        </tr>
-        <p th:text="'Account balance: ' + ${account.balance}"></p>
-    </table>
-
-    <br>
-    <a th:href="@{/customer/list}">Come back to Customer List</a>
-    <br>
-    <a th:href="@{/}">Home Page</a>
+        <table th:each="account : ${customer.accounts}" align="center">
+            <caption th:text="${'Account Name ' + account.name}"></caption>
+            <tr>
+                <th>Transaction No.</th>
+                <th>Value of Transaction</th>
+            </tr>
+            <tr th:each="transaction : ${account.transactions}">
+                <td th:text="${transaction.transactionId}"></td>
+                <td th:text="${transaction.valueOfTransaction}"></td>
+            </tr>
+            <p th:text="'Account balance: ' + ${account.balance}"></p>
+        </table>
+    </div>
+    <div class="footer">
+        <br>
+        <a th:href="@{/customer/list}">Come back to Customer List</a>
+        <br>
+        <a th:href="@{/}">Home Page</a>
+    </div>
+</div>
 </body>
 </html>

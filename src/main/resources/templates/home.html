@@ -1,13 +1,19 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}"/>
     <title>Welcome to Account Manager!</title>
 </head>
 
 <body>
-    Welcome to Account Manager!
-
-    <br>
-    <a th:href="@{/customer/list}">See all the Customers!</a>
+<div class="container">
+    <div class="header">
+        <h2>Welcome to Account Manager!</h2>
+    </div>
+        <br>
+        <div class="main-area">
+            <a th:href="@{/customer/list}">See all the Customers</a>
+        </div>
+</div>
 </body>
 </html>
