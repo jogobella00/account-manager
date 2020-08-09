@@ -24,11 +24,6 @@ public class AccountServiceImpl implements AccountService {
         this.accountRepository = accountRepository;
     }
 
-    @Override
-    public void save(Account account) {
-        accountRepository.save(account);
-    }
-
     /**
      * The method is adding new transaction to the account
      * after it, method sumTransactions(Account account) is summing up all

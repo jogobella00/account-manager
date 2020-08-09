@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customer = getCustomerById(customerId); // find Customer in the DB
         Account newAccount = new Account(); // create new Account and related Transaction
-        accountService.addTransaction(newAccount, new Transaction(initialCredit));
+        accountService.addTransaction(newAccount, new Transaction(initialCredit)); // add Transaction to the Account
         addAccount(customer, newAccount); // add new Account to Customer
         customerRepository.save(customer); // save Customer with all child entities
     }
@@ -62,12 +62,16 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.save(customer);
     }
 
+    /**
+     * The method is adding new Account to the Customer
+     * @param customer
+     * @param account
+     */
     @Override
     public void addAccount(Customer customer, Account account) {
-        if (customer.getAccounts() == null) {
-            customer.setAccounts(new ArrayList<>());
+        if (customer.getAccounts() == null) { // if there is are no Accounts for the Customer
+            customer.setAccounts(new ArrayList<>()); // create empty list
         }
-
-        customer.getAccounts().add(account);
+        customer.getAccounts().add(account); // add Account passed in the argument
     }
 }

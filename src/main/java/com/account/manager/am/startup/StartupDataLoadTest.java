@@ -49,10 +49,11 @@ public class StartupDataLoadTest implements ApplicationRunner {
 
         Customer cust = new Customer(firstName, lastName); // create new Customer
 
+        Transaction transaction1 = new Transaction(valueOfTransaction1);
         Transaction transaction2 = new Transaction(valueOfTransaction2); // created separated, the constructor of Account can receive only one argument with Transaction
 
         Account acc1 = new Account(); // create new Account no.1
-        accountService.addTransaction(acc1, new Transaction(valueOfTransaction1));
+        accountService.addTransaction(acc1, transaction1);
 
         accountService.addTransaction(acc1, transaction2); // add to the Account no.1 Transaction
 
@@ -62,5 +63,6 @@ public class StartupDataLoadTest implements ApplicationRunner {
         customerService.addAccount(cust, acc2); // add Account no. 2 to the Customer
 
         customerService.save(cust); // save Customer into the DB
+
     }
 }

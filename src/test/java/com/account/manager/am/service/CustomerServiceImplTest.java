@@ -5,6 +5,7 @@ import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
 import com.account.manager.am.model.Transaction;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -13,6 +14,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test Customer Business Layer
+ */
+@DisplayName("CustomerService Tests")
 public class CustomerServiceImplTest {
 
     CustomerService customerService;
@@ -24,7 +29,9 @@ public class CustomerServiceImplTest {
         customerService = new CustomerServiceImpl(customerRepository, accountService);
     }
 
+    // test adding new Account to the Customer by Service
     @Test
+    @DisplayName("Adding Account")
     public void addAccountTest() {
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(new Transaction(BigDecimal.valueOf(1000)));

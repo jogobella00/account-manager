@@ -6,8 +6,10 @@ import com.account.manager.am.exception.WrongInitialCreditException;
 import com.account.manager.am.model.Account;
 import com.account.manager.am.model.Customer;
 import com.account.manager.am.model.Transaction;
+import com.account.manager.am.service.AccountService;
 import com.account.manager.am.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-//TODO: add comments to all the tests
+/**
+ * Tests for methods in BackendController
+ * Checking if they're returning proper Object and throwing proper Exceptions
+ */
 @WebMvcTest(BackendController.class)
+@DisplayName("Test BackendController method")
 public class BackendControllerTest {
 
     @MockBean
@@ -47,17 +53,30 @@ public class BackendControllerTest {
 
     @BeforeEach
     void setUp() {
+        // create Transactions and Account for validCustomer
+        Transaction transaction = new Transaction(BigDecimal.valueOf(9999));
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        Account account = new Account(BigDecimal.valueOf(9999));
+        account.setTransactions(transactions);
+        // create Customer object
         validCustomer = Customer.builder()
                 .customerId(1)
                 .firstName("bob")
                 .lastName("smith")
-                .balance(123456.12)
-                .accounts(new ArrayList<>(List.of(new Account(new Transaction(BigDecimal.valueOf(9999))))))
+                .balance(9999)
+                .accounts(new ArrayList<>(List.of(account)))
                 .build();
+        // set up BackendController with CustomResponseEntityExceptionHandler
         this.mockMvc = MockMvcBuilders.standaloneSetup(new CustomResponseEntityExceptionHandler(), backendController).build();
     }
 
+    /**
+     * Check if getCustomerById() is returning proper JSON
+     * @throws Exception
+     */
     @Test
+    @DisplayName("GET Customer by ID - check output JSON")
     void getCustomerByIdTest() throws Exception {
         given(backendController.getCustomer(anyInt())).willReturn(validCustomer);
 
@@ -67,19 +86,42 @@ public class BackendControllerTest {
                 .andExpect(jsonPath("$.customerId", is(validCustomer.getCustomerId())))
                 .andExpect(jsonPath("$.firstName", is(validCustomer.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(validCustomer.getLastName())))
-                .andExpect(jsonPath("$.balance", is(validCustomer.getBalance())));
+                .andExpect(jsonPath("$.balance", is(validCustomer.getBalance())))
+                .andExpect(jsonPath("$.accounts[0].balance",
+                        is(validCustomer.getAccounts()
+                                .get(0)
+                                .getBalance()
+                                .intValue())))
+                .andExpect(jsonPath("$.accounts[0].transactions[0].valueOfTransaction",
+                        is(validCustomer.getAccounts()
+                                .get(0)
+                                .getTransactions()
+                                .get(0)
+                                .getValueOfTransaction()
+                                .intValue())));
     }
 
+    /**
+     * Test if CustomerIdNotFoundException is thrown and if it's with proper message
+     * @throws Exception
+     */
     @Test
+    @DisplayName("GET Customer by ID - not found")
     public void getCustomerById_IdNotFoundTest() throws Exception {
-        when(backendController.getCustomer(4)).thenThrow(new CustomerIdNotFoundException(4));
+        int customerId = 4;
+        when(backendController.getCustomer(customerId)).thenThrow(new CustomerIdNotFoundException(customerId));
 
-        mockMvc.perform(get("/v1/customer/4"))
+        mockMvc.perform(get("/v1/customer/" + customerId))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message", is("Customer with: customerId=4 not found.")));
+                .andExpect(jsonPath("$.message", is("Customer with: customerId=" + customerId + " not found.")));
     }
 
+    /**
+     * Test if ConstraintViolationException is thrown and if it's with proper message
+     * @throws Exception
+     */
     @Test
+    @DisplayName("GET create new Account - too big number")
     public void createNewAccount_initialCreditTooLongTest() throws Exception {
         when(backendController.createNewAccount(1, BigDecimal.valueOf(1000000000))).thenThrow(new ConstraintViolationException("",null));
 
@@ -89,7 +131,11 @@ public class BackendControllerTest {
                 .andExpect(jsonPath("$.message", is("You want to transfer too much money! Maximum amount is 999999999")));
     }
 
+    /**
+     * Test if WrongInitialCreditException is thrown and if it's with proper message
+     */
     @Test
+    @DisplayName("GET create new Account - initialCredit 0")
     public void createNewAccount_initialCreditIsZeroTest() throws Exception {
         when(backendController.createNewAccount(1, BigDecimal.valueOf(0))).thenThrow(new WrongInitialCreditException("You cannot do transfer with no money!"));
 
