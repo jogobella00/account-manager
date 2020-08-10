@@ -14,6 +14,7 @@ import java.util.List;
  * Account entity is representing Account in Account-Manager app
  * It has fields of
  * - account_id populated by H2 DB,
+ * - account_name
  * - balance that is BigDecimal value specified by hibernate annotation as decimal(10,2),
  * represents amount of money on the Account,
  * - customer_id field is present in Customer class with help of annotation @OneToMany,

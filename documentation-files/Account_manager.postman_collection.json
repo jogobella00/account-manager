@@ -1,0 +1,642 @@
+{
+	"info": {
+		"_postman_id": "510ef06f-b760-42a5-8804-40f799cb4aa0",
+		"name": "Account_manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "200 GET getCustomer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/customer/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"1"
+					]
+				},
+				"description": "URI:\r\n/v1/customer/customerId\r\n\r\npathVariable: customerId"
+			},
+			"response": [
+				{
+					"name": "200 GET getCustomer",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:06:18 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"customerId\": 1,\n    \"firstName\": \"Maria\",\n    \"lastName\": \"Spring\",\n    \"balance\": 3054.32,\n    \"accounts\": [\n        {\n            \"accountId\": 1,\n            \"name\": \"personal\",\n            \"balance\": 500,\n            \"transactions\": [\n                {\n                    \"transactionId\": 1,\n                    \"valueOfTransaction\": 1000\n                },\n                {\n                    \"transactionId\": 2,\n                    \"valueOfTransaction\": -500\n                }\n            ]\n        },\n        {\n            \"accountId\": 2,\n            \"name\": \"professional\",\n            \"balance\": 1554.32,\n            \"transactions\": [\n                {\n                    \"transactionId\": 3,\n                    \"valueOfTransaction\": 1554.32\n                }\n            ]\n        },\n        {\n            \"accountId\": 7,\n            \"name\": \"fun\",\n            \"balance\": 1000,\n            \"transactions\": [\n                {\n                    \"transactionId\": 10,\n                    \"valueOfTransaction\": 1000\n                }\n            ]\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "204 POST createNewAccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/customer/1/account?initialCredit=1000&accountName=fun",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"1",
+						"account"
+					],
+					"query": [
+						{
+							"key": "initialCredit",
+							"value": "1000"
+						},
+						{
+							"key": "accountName",
+							"value": "fun"
+						}
+					]
+				},
+				"description": "URI: \r\n/v1/customer/customerId/account?initialValue=&accountName=\r\n\r\npathVariable: customerId\r\nquery params: initialValue, accountName"
+			},
+			"response": [
+				{
+					"name": "204 POST createNewAccount",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=1000&accountName=fun",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "1000"
+								},
+								{
+									"key": "accountName",
+									"value": "fun"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:01:54 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "404 GET getCustomer - not found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/customer/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"4"
+					]
+				},
+				"description": "Customer not found"
+			},
+			"response": [
+				{
+					"name": "404 GET getCustomer",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"4"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:05:31 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:05:31.041+00:00\",\n    \"message\": \"Customer with: customerId=4 not found.\",\n    \"details\": \"uri=/v1/customer/4\",\n    \"httpCodeMessage\": \"Not Found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "400 POST createNewAccount - initialValue=0",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/customer/1/account?initialCredit=0&accountName=test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"1",
+						"account"
+					],
+					"query": [
+						{
+							"key": "initialCredit",
+							"value": "0"
+						},
+						{
+							"key": "accountName",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 POST createNewAccount - initialValue=0",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=0&accountName=test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "0"
+								},
+								{
+									"key": "accountName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:07:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:07:47.487+00:00\",\n    \"message\": \"You cannot do transfer with no money!\",\n    \"details\": \"uri=/v1/customer/1/account\",\n    \"httpCodeMessage\": \"Bad Request\"\n}"
+				}
+			]
+		},
+		{
+			"name": "400 POST createNewAccount - initialValue too big",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/customer/1/account?initialCredit=999999999999999&accountName=test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"1",
+						"account"
+					],
+					"query": [
+						{
+							"key": "initialCredit",
+							"value": "999999999999999"
+						},
+						{
+							"key": "accountName",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 POST createNewAccount - initialValue too big",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=999999999999999&accountName=test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "999999999999999"
+								},
+								{
+									"key": "accountName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:08:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:08:29.491+00:00\",\n    \"message\": \"You want to transfer too much money! Maximum amount is 999999999\",\n    \"details\": \"uri=/v1/customer/1/account\",\n    \"httpCodeMessage\": \"Bad Request\"\n}"
+				},
+				{
+					"name": "400 POST createNewAccount - initialValue=0",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=0&accountName=test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "0"
+								},
+								{
+									"key": "accountName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:07:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:07:47.487+00:00\",\n    \"message\": \"You cannot do transfer with no money!\",\n    \"details\": \"uri=/v1/customer/1/account\",\n    \"httpCodeMessage\": \"Bad Request\"\n}"
+				}
+			]
+		},
+		{
+			"name": "400 POST createNewAccount - initialValue not a number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/customer/1/account?initialCredit=abc&accountName=test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"customer",
+						"1",
+						"account"
+					],
+					"query": [
+						{
+							"key": "initialCredit",
+							"value": "abc"
+						},
+						{
+							"key": "accountName",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 POST createNewAccount - initialValue=0",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=0&accountName=test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "0"
+								},
+								{
+									"key": "accountName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:07:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:07:47.487+00:00\",\n    \"message\": \"You cannot do transfer with no money!\",\n    \"details\": \"uri=/v1/customer/1/account\",\n    \"httpCodeMessage\": \"Bad Request\"\n}"
+				},
+				{
+					"name": "400 POST createNewAccount - initialValue too big",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=999999999999999&accountName=test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "999999999999999"
+								},
+								{
+									"key": "accountName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:08:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:08:29.491+00:00\",\n    \"message\": \"You want to transfer too much money! Maximum amount is 999999999\",\n    \"details\": \"uri=/v1/customer/1/account\",\n    \"httpCodeMessage\": \"Bad Request\"\n}"
+				},
+				{
+					"name": "400 POST createNewAccount - initialValue not a number",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/customer/1/account?initialCredit=abc&accountName=test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customer",
+								"1",
+								"account"
+							],
+							"query": [
+								{
+									"key": "initialCredit",
+									"value": "abc"
+								},
+								{
+									"key": "accountName",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 10 Aug 2020 14:08:53 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-08-10T14:08:53.874+00:00\",\n    \"message\": \"initialCredit has to be a number.\",\n    \"details\": \"uri=/v1/customer/1/account\",\n    \"httpCodeMessage\": \"Bad Request\"\n}"
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}
