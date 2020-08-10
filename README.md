@@ -58,4 +58,4 @@ and integration tests by *mvn verify*.
 building docker image and deploying it into my repository on Docker Hub.
 <br>You can access it via this [link](https://hub.docker.com/repository/docker/jogobella00/account-manager) 
 or download you can run this image on you machine with docker installed, by typing 
-**docker run jogobella00/account-manager:latest** in your terminal. 
+**docker run -p 8080:8080 jogobella00/account-manager:latest** in your terminal. 
