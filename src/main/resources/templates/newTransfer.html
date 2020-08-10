@@ -14,7 +14,7 @@
         <p th:text="'Customer: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></p>
     </div>
     <div class="main-area">
-            <form th:action="@{/saveTransfer/{customerId}(customerId=${customer.customerId})}" th:method="post">
+            <form th:action="@{/saveTransfer/{customerId}/account(customerId=${customer.customerId})}" th:method="post">
                 <br>
                 Value of Transaction
                 <br>

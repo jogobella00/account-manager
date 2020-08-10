@@ -45,15 +45,15 @@ public class CustomerController {
      *     customerId: int
      *     firstName: String
      *     lastName: String
-     *     balance: double
+     *     balance: number
      *     accounts: List [
      *          {
      *              accountId: int
-     *              balance: double
+     *              balance: number
      *              transactions: List [
      *                  {
      *                   transactionId: int
-     *                   valueOfTransaction: double
+     *                   valueOfTransaction: number
      *                  }
      *               ]
      *          }
@@ -70,9 +70,9 @@ public class CustomerController {
      * Endpoint allows to create new Account of existing Customer
      * @throws com.account.manager.am.exception.CustomerIdNotFoundException if passed customerId cannot be found in the DB
      * @throws ConstraintViolationException handled in {@link com.account.manager.am.exception.CustomResponseEntityExceptionHandler}
-     * if value of initialCredit is smaller then 1 (400 response)
+     * if value of initialCredit is 0 (400 response)
      * @param customerId integer value
-     * @param initialCredit BigDecimal value, bigger than 0
+     * @param initialCredit BigDecimal value, not 0
      * @return 204 empty response or 400 when ConstraintViolationException thrown
      */
     @PostMapping("/customer/{customerId}/account")

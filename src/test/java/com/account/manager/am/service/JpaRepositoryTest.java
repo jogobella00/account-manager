@@ -16,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,5 +106,15 @@ public class JpaRepositoryTest {
         BigDecimal balance = customerToCheck.getAccounts().stream().map(Account::getBalance) // get valueOfTransaction of each Transaction in the list
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         assertEquals(balance.doubleValue(), customerToCheck.getBalance());
+    }
+
+    // check if findAll() works properly
+    @Test
+    @DisplayName("FindAll()")
+    void customerFindAllTest() {
+        List<Customer> customerList = customerService.findAll();
+        customerService.save(customer);
+        List<Customer> biggerCustomerList = customerService.findAll();
+        assertEquals(customerList.size()+1, biggerCustomerList.size());
     }
 }
