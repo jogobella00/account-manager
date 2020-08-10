@@ -38,7 +38,9 @@ jobs:
         with:
           java-version: 11.0.4
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+        env:
+          DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+        run: docker login --username ${{ secrets.DOCKER_USER }} --password $DOCKER_PASS
       - name: Build Docker image
         run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
       - name: Publish Docker image
