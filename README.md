@@ -8,4 +8,4 @@ It's Spring Boot application, using Java 11, in-memory H2 database and frontend 
 H2 to tables are created according to JPA&Hibernate annotations in model package.
 
 SQL data model diagram:
-<img src=“documentation-files/sql_diagram.png” alt="SQL Diagram">
+<img src="/documentation-files/sql_diagram.png" alt="SQL Diagram">
