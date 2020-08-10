@@ -43,5 +43,19 @@ In documentation-files directory you can find Postman collection exported to JSO
 requests and responses from the API.
 
 <br>
-Second API is for managing frontend data flow. You can access is at 
-address localhost:8080 after you run the application.
+Second API is for managing frontend data flow. You can access homepage at the 
+address **localhost:8080** after you run the application.
+
+### CI/CD
+
+CI/CD pipeline is configured within GitHub Actions.
+<br>Configuration file is in .github/workflows/test-and-docker-deploy-workflow.yml file
+<br>The workflow is triggered by push to 'master' branch.
+<br>It consists two jobs.
+<br>First one is building the application by *mvn package* and then launching unit 
+and integration tests by *mvn verify*.
+<br>After this job finish successfully the second one is launched - 
+building docker image and deploying it into my repository on Docker Hub.
+<br>You can access it via this [link](https://hub.docker.com/repository/docker/jogobella00/account-manager) 
+or download you can run this image on you machine with docker installed, by typing 
+**docker run -p 8080:8080 jogobella00/account-manager:latest** in your terminal. 
