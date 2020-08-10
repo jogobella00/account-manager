@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 /**
@@ -81,7 +82,7 @@ public class CustomerFrontendController {
      */
     @PostMapping("/saveTransfer/{customerId}/account")
     public String saveTransfer(@PathVariable("customerId") int customerId,
-                               @RequestParam(value = "initialCredit") @Max(1000000000) @NumberFormat BigDecimal initialCredit,
+                               @RequestParam(value = "initialCredit") @Max(999999999) @Min(-999999999) @NumberFormat BigDecimal initialCredit,
                                @RequestParam(value = "accountName") String accountName) {
         if (initialCredit.equals(BigDecimal.valueOf(0))) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");

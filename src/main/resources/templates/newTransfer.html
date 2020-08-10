@@ -10,7 +10,7 @@
     <div class="header">
         <h2>Make a new transfer</h2>
         <br>
-        <div class="customerName"
+        <div class="customerName">
         <p th:text="'Customer: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></p>
     </div>
     <div class="main-area">
@@ -19,12 +19,12 @@
                 Value of Transaction
                 <br>
                 <input type="text" placeholder="Value of Transaction" th:name="initialCredit" th:maxlength="9"
-                       value="100">
+                       value="100" required>
                 <br>
                 <br>
                 Account Name
                 <br>
-                <input type="text" placeholder="Account Name" th:name="accountName" value="new account">
+                <input type="text" placeholder="Account Name" th:name="accountName" value="new account" required>
                 <br>
                 <br>
                 <button type="submit">Save a Transfer</button>
