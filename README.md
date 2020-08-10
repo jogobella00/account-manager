@@ -49,13 +49,13 @@ address **localhost:8080** after you run the application.
 ### CI/CD
 
 CI/CD pipeline is configured within GitHub Actions.
-<br>Configuration file is in .github/workflows/test-and-docker-deploy-workflow.yml
+<br>Configuration file is in .github/workflows/test-and-docker-deploy-workflow.yml file
 <br>The workflow is triggered by push to 'master' branch.
 <br>It consists two jobs.
 <br>First one is building the application by *mvn package* and then launching unit 
-and integration tests *mvn verify*.
-<br>If this job will finish successfully the second one is launched.
-Second job is building docker image and deploying it into my repository on Docker Hub.
+and integration tests by *mvn verify*.
+<br>After this job finish successfully the second one is launched - 
+building docker image and deploying it into my repository on Docker Hub.
 <br>You can access it via this [link](https://hub.docker.com/repository/docker/jogobella00/account-manager) 
 or download you can run this image on you machine with docker installed, by typing 
 **docker run jogobella00/account-manager:latest** in your terminal. 
