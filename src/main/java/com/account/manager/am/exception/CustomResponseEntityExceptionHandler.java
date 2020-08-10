@@ -51,7 +51,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     ResponseEntity<Object> handleTooLongInitialNumber(RuntimeException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 new Date(),
-                "You want to transfer too much money! Maximum amount is 999999999",
+                "You want to transfer too much or too less money! The amount should be between 999999999 and -999999999",
                 request.getDescription(false),
                 HttpStatus.BAD_REQUEST.getReasonPhrase());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);

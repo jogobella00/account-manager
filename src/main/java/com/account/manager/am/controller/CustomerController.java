@@ -13,6 +13,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 /**
@@ -77,7 +78,7 @@ public class CustomerController {
      */
     @PostMapping("/customer/{customerId}/account")
     public ResponseEntity<Object> createNewAccount(@PathVariable int customerId,
-                                                   @RequestParam(value = "initialCredit") @Max(1000000000) @NumberFormat BigDecimal initialCredit,
+                                                   @RequestParam(value = "initialCredit") @Max(999999999) @Min(-999999999) @NumberFormat BigDecimal initialCredit,
                                                    @RequestParam(value = "accountName") String accountName) {
         if (initialCredit.equals(BigDecimal.valueOf(0))) {
             throw new WrongInitialCreditException("You cannot do transfer with no money!");
