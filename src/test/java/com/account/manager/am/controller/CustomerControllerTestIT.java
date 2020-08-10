@@ -85,7 +85,7 @@ public class CustomerControllerTestIT {
                         String.class);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertTrue(response.getBody().contains("You want to transfer too much money! Maximum amount is 999999999"));
+        assertTrue(response.getBody().contains("You want to transfer too much or too less money! The amount should be between 999999999 and -999999999"));
     }
 
     /**
